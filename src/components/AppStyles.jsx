@@ -6,7 +6,8 @@ export const AppContainer = styled.div`
   display: flex;
 
   flex-direction: column;
-  background-color: red;
+  
+  position: relative;
 `;
 
 export const AppTitle = styled.div`
@@ -15,29 +16,31 @@ export const AppTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: blue;
+  font-size: 40px;
+  padding: 10px 0px;
 `;
 
 export const AppButtons = styled.div`
-  width: 100%;
-  height: 100px;
+  /*width: 100%;
+  height: 100px;*/
   display: flex;
-  justify-content: space-beetween;
+  justify-content: center;
   align-items: center;
-  background-color: green;
 `;
 
 export const Button = styled.button`
   width: 100px;
   height: 50px;
-  background-color: ${(props) =>
-    props.typeButton === "hotel" ? "red" : "blue"};
+  margin: 10px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
 
   &:hover {
+    color: white;
     cursor: pointer;
+    background-color: ${(props) =>
+    props.typeButton === "hotel" ? "red" : "blue"};
   }
 `;

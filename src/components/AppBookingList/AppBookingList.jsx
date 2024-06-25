@@ -1,34 +1,25 @@
 import "./AppBookingList.css";
+import CardList from "./CardList";
 
-function AppBookingList() {
-  const bookingList = [
-    { customerName: "alex", bookingDate: new Date(), bookingFlight: false },
-    { customerName: "alex", bookingDate: new Date(), bookingFlight: false },
-    { customerName: "alex", bookingDate: new Date(), bookingFlight: false },
-  ];
+
+function AppBookingList({ list }) {
+
   return (
-    <div>
+    <div className="list-container">
       <header>
         <h3>Booking list</h3>
       </header>
-
-      <div>
-        {bookingList &&
-          bookingList.map((booking, index) => (
-            <div>
-              <h2>{booking.customerName}</h2>
-              <h3>{booking.bookingDate.toString()}</h3>
-              <button
-                className="nav-btn"
-                value={"sapa 🐸🐸🐸🐸"}
-                onClick={(e) => {
-                  console.log(e.target.value);
-                }}
-              >
-                Delete reservation
-              </button>
-            </div>
-          ))}
+      <div className="scroll-box">
+        <ul>
+          <div>
+            <li>
+              {list &&
+                list.map((booking, index) => (
+                  <CardList booking={booking} />
+                ))}
+            </li>
+          </div>
+        </ul>
       </div>
     </div>
   );
