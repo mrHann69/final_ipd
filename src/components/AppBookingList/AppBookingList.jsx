@@ -7,7 +7,7 @@ function AppBookingList({ list }) {
   return (
     <div className="list-container">
       <header>
-        <h3>Booking list</h3>
+        <h1>Booking list</h1>
       </header>
       <div className="scroll-box">
         <ul>

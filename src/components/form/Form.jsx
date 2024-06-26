@@ -82,7 +82,7 @@ export default function Form({ type, list, setList }) {
               />
             </div>
             <div >
-              <label htmlFor="checkflight">Hotel Reservation ? </label>
+              <label htmlFor="checkflight">Flight Reservation ? </label>
               <input type="checkbox" name="checkflight" onChange={
                 () => setStateCheckbox(!stateCheckbox)} />
             </div>
@@ -143,7 +143,7 @@ export default function Form({ type, list, setList }) {
               />
             </div>
             <div >
-              <label htmlFor="checkhotel">Flight Reservation ? </label>
+              <label htmlFor="checkhotel">Hotel Reservation ? </label>
               <input type="checkbox" name="checkhotel" onChange={
                 () => setStateCheckbox(!stateCheckbox)} />
             </div>

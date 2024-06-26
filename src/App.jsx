@@ -4,6 +4,7 @@ import {
   AppTitle,
   AppButtons,
   Button,
+  AppContainerRow,
 } from "./components/AppStyles";
 import AppBookingList from "./components/AppBookingList/AppBookingList";
 import Form from "./components/form/Form.jsx";
@@ -21,10 +22,9 @@ function App() {
 
   return (
     <AppContainer>
-
       <AppTitle>Booking App</AppTitle>
-      <div className="container">
-        <div className="box box1">
+      <AppContainerRow>
+        <AppContainer>
           <AppButtons >
             <Button
               type="button"
@@ -46,18 +46,20 @@ function App() {
           {showForm && (
             <Form list={list} setList={setList} type={state} />
           )}
-        </div>
+        </AppContainer>
 
-        <div className="box box2">
+        <AppContainer>
           <AppBookingList list={list} />
-        </div>
-      </div>
-
-
+        </AppContainer>
+      </AppContainerRow>
     </AppContainer>
 
   );
 }
+
+const bookingListExample = [{
+  
+}];
 
 const bookingList = [
   {
@@ -88,5 +90,7 @@ const bookingList = [
     checkOutDateFlight: new Date().toUTCString(),
   },
 ];
+
+
 
 export default App;

@@ -1,17 +1,29 @@
 .container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100vh; 
   border: 1px solid #000;
+  gap: 20px;
 }
 
 .box {
-  width: 300px;
+  width: 600px;
   height: 200px;
   border: 1px solid #000;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px;
   margin: 5px; 
+}
+
+.box box1 {
+  width: 50vh;
+  height: 50vh; 
+  border: 1px solid #000000; 
+}
+
+.box2 {
+  width: 50vh;
+  height: 50vh; 
 }
