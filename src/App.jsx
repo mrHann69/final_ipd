@@ -4,6 +4,7 @@ import {
   AppTitle,
   AppButtons,
   Button,
+  AppContainerRow,
 } from "./components/AppStyles";
 import AppBookingList from "./components/AppBookingList/AppBookingList";
 import Form from "./components/form/Form.jsx";
@@ -22,10 +23,9 @@ function App() {
 
   return (
     <AppContainer>
-
       <AppTitle>Booking App</AppTitle>
-      <div className="container">
-        <div className="box box1">
+      <AppContainerRow>
+        <AppContainer>
           <AppButtons >
             <Button
               type="button"
@@ -47,14 +47,12 @@ function App() {
           {showForm && (
             <Form list={temp} setList={setTemp} type={state} />
           )}
-        </div>
+        </AppContainer>
 
-        <div className="box box2">
-          <AppBookingList list={temp} />
-        </div>
-      </div>
-
-
+        <AppContainer>
+          <AppBookingList list={temp} setList={setList}/>
+        </AppContainer>
+      </AppContainerRow>
     </AppContainer>
 
   );
