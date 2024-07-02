@@ -13,6 +13,7 @@ function App() {
   const [state, setState] = useState("hotel");
 
   const [list, setList] = useState(bookingList);
+  const [temp, setTemp] = useState(tempList);
 
   const handleShowForm = (type) => {
     setState(type);
@@ -41,15 +42,15 @@ function App() {
           </AppButtons>
 
           {!showForm && (
-            <Form list={list} setList={setList} type={state} />
+            <Form list={temp} setList={setTemp} type={state} />
           )}
           {showForm && (
-            <Form list={list} setList={setList} type={state} />
+            <Form list={temp} setList={setTemp} type={state} />
           )}
         </div>
 
         <div className="box box2">
-          <AppBookingList list={list} />
+          <AppBookingList list={temp} />
         </div>
       </div>
 
@@ -58,7 +59,17 @@ function App() {
 
   );
 }
-
+const tempList = [
+  {
+    customerName: "alex ej",
+    bookingHotel: true,
+    checkInDateHotel: new Date().toUTCString(),
+    checkOutDateHotel: new Date().toUTCString(),
+    bookingFlight: true,
+    checkInDateFlight: new Date().toUTCString(),
+    checkOutDateFlight: new Date().toUTCString(),
+  },
+];
 const bookingList = [
   {
     customerName: "alex",
