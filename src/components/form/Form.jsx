@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 import "./Form.css";
 
 export default function Form({ type, update, setUpdate }) {
+  const [customerName, setCustomerName] = useState("");
 
-  const [customerName, setCustomerName] = useState('');
+  const [checkInDateHotel, setCheckInDateHotel] = useState("");
+  const [checkOutDateHotel, setCheckOutDateHotel] = useState("");
 
-  const [checkInDateHotel, setCheckInDateHotel] = useState('');
-  const [checkOutDateHotel, setCheckOutDateHotel] = useState('');
-
-  const [checkInDateFlight, setCheckInDateFlight] = useState('');
-  const [checkOutDateFlight, setCheckOutDateFlight] = useState('');
+  const [checkInDateFlight, setCheckInDateFlight] = useState("");
+  const [checkOutDateFlight, setCheckOutDateFlight] = useState("");
 
   const [stateCheckbox, setStateCheckbox] = useState(false);
 
@@ -24,7 +23,7 @@ export default function Form({ type, update, setUpdate }) {
       setCheckOutDateFlight(booking.checkOutDateFlight);
       setStateCheckbox(booking.bookingFlight && booking.bookingHotel);
     }
-  }, [update.state]);
+  }, [update, update.state]);
 
   const handleSubmit = (e, tp) => {
     e.preventDefault();
@@ -33,20 +32,20 @@ export default function Form({ type, update, setUpdate }) {
       checkInDateHotel,
       checkOutDateHotel,
       checkInDateFlight,
-      checkOutDateFlight
-    }
+      checkOutDateFlight,
+    };
     if (update.state) {
-      if(update.type ==="hotel"){
+      if (update.type === "hotel") {
         // mandar al serivdor → PATCH /api/v1/hotel
       }
-      if(update.type ==="flight"){
+      if (update.type === "flight") {
         // mandar al serivdor → PATCH /pi/v1/flight
       }
       setUpdate({
         state: false,
-        type: '',
-        booking: {}
-      })
+        type: "",
+        booking: {},
+      });
       return;
     } else {
       if (tp === "hotel") {
@@ -68,9 +67,7 @@ export default function Form({ type, update, setUpdate }) {
         {type === "hotel" ? (
           <>
             <div className="form-table">
-              <h1>
-                Hotel Bukinham
-              </h1>
+              <h1>Hotel Bukinham</h1>
               <div className="form-cell">
                 <label>Name:</label>
                 <input
@@ -98,10 +95,13 @@ export default function Form({ type, update, setUpdate }) {
                   required
                 />
               </div>
-              <div >
+              <div>
                 <label htmlFor="checkflight">Fight Reservation ? </label>
-                <input type="checkbox" name="checkflight" onChange={
-                  () => setStateCheckbox(!stateCheckbox)} />
+                <input
+                  type="checkbox"
+                  name="checkflight"
+                  onChange={() => setStateCheckbox(!stateCheckbox)}
+                />
               </div>
               {stateCheckbox && (
                 <>
@@ -130,9 +130,7 @@ export default function Form({ type, update, setUpdate }) {
         ) : (
           <>
             <div className="form-table">
-              <h1>
-                Flight Bakiña
-              </h1>
+              <h1>Flight Bakiña</h1>
               <div className="form-cell">
                 <label>Name:</label>
                 <input
@@ -160,10 +158,13 @@ export default function Form({ type, update, setUpdate }) {
                   required
                 />
               </div>
-              <div >
+              <div>
                 <label htmlFor="checkhotel">Hotel Reservation ? </label>
-                <input type="checkbox" name="checkhotel" onChange={
-                  () => setStateCheckbox(!stateCheckbox)} />
+                <input
+                  type="checkbox"
+                  name="checkhotel"
+                  onChange={() => setStateCheckbox(!stateCheckbox)}
+                />
               </div>
               {stateCheckbox && (
                 <>
@@ -187,14 +188,15 @@ export default function Form({ type, update, setUpdate }) {
                   </div>
                 </>
               )}
-
             </div>
           </>
         )}
         <div className="form-row">
-          <button type="submit">Accept {type === "hotel" ? "Hotel" : "Flight"}</button>
+          <button type="submit">
+            Accept {type === "hotel" ? "Hotel" : "Flight"}
+          </button>
         </div>
       </form>
     </div>
   );
-}   
+}

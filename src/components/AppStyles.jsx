@@ -6,7 +6,8 @@ export const AppContainer = styled.div`
   display: flex;
 
   flex-direction: column;
-  /*border: 1px solid #000000; */border: 1px solid #000000; 
+  /*border: 1px solid #000000; */
+  border: 1px solid #000000;
   position: relative;
 `;
 
@@ -51,6 +52,6 @@ export const Button = styled.button`
     color: white;
     cursor: pointer;
     background-color: ${(props) =>
-    props.typeButton === "hotel" ? "red" : "blue"};
+      props.typebutton === "hotel" ? "red" : "blue"};
   }
 `;

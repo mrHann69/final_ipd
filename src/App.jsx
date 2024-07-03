@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppContainer,
   AppTitle,
@@ -8,74 +8,84 @@ import {
 } from "./components/AppStyles";
 import AppBookingList from "./components/AppBookingList/AppBookingList";
 import Form from "./components/form/Form.jsx";
+import { getHotelsReservations } from "./services/hotel.service.js";
 
 function App() {
   const [showForm, setShowForm] = useState(true);
   const [state, setState] = useState("hotel");
 
-  const [listHotels, setListHotels] = useState(bookingListHotels);
-  const [listFlights, setListFlights] = useState(bookingListFlights);
-  const [temp, setTemp] = useState(tempList);
+  // const [listHotels, setListHotels] = useState(bookingListHotels);
+  // const [listFlights, setListFlights] = useState(bookingListFlights);
+
+  const [listHotels, setListHotels] = useState([]);
+  const [listFlights, setListFlights] = useState([]);
 
   const [isUpdate, setIsUpdate] = useState({ state: false });
 
   const handleShowForm = (type) => {
     setState(type);
-    setShowForm(type==="hotel"?true:false);
-  }
+    setShowForm(type === "hotel" ? true : false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      setListHotels(await getHotelsReservations());
+    })();
+  }, []);
 
   return (
     <AppContainer>
       <AppTitle>Booking App</AppTitle>
       <AppContainerRow>
         <AppContainer>
-          <AppButtons >
+          <AppButtons>
             <Button
               type="button"
-              typeButton="hotel"
-              onClick={() => handleShowForm("hotel")}>
+              typebutton="hotel"
+              onClick={() => handleShowForm("hotel")}
+            >
               Hotel
             </Button>
             <Button
               type="button"
-              typeButton="flight"
-              onClick={() => handleShowForm("flight")}>
+              typebutton="flight"
+              onClick={() => handleShowForm("flight")}
+            >
               Flight
             </Button>
           </AppButtons>
 
           {showForm && (
-            <Form type={state} update={isUpdate} setUpdate={setIsUpdate}/>
+            <Form type={state} update={isUpdate} setUpdate={setIsUpdate} />
           )}
           {!showForm && (
-            <Form type={state} update={isUpdate} setUpdate={setIsUpdate}/>
+            <Form type={state} update={isUpdate} setUpdate={setIsUpdate} />
           )}
         </AppContainer>
 
         <AppContainer>
           {showForm && (
-            <AppBookingList list={listHotels} setListHotels={setListHotels} setIsUpdate={setIsUpdate} type={state}/>
+            <AppBookingList
+              list={listHotels}
+              setListHotels={setListHotels}
+              setIsUpdate={setIsUpdate}
+              type={state}
+            />
           )}
           {!showForm && (
-            <AppBookingList list={listFlights} setListFlights={setListFlights} setIsUpdate={setIsUpdate} type={state}/>
+            <AppBookingList
+              list={listFlights}
+              setListFlights={setListFlights}
+              setIsUpdate={setIsUpdate}
+              type={state}
+            />
           )}
         </AppContainer>
       </AppContainerRow>
     </AppContainer>
-
   );
 }
-const tempList = [
-  {
-    customerName: "alex ej",
-    bookingHotel: true,
-    checkInDateHotel: new Date().toUTCString(),
-    checkOutDateHotel: new Date().toUTCString(),
-    bookingFlight: true,
-    checkInDateFlight: new Date().toUTCString(),
-    checkOutDateFlight: new Date().toUTCString(),
-  },
-];
+
 const bookingListHotels = [
   {
     customerName: "alex",
