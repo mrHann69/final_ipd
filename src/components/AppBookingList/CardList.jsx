@@ -2,7 +2,7 @@ import "./CardList.css";
 import React, { useState } from "react";
 export default function CardList({ booking, removeComp, editeReservation, index }) {
 
-  return (
+  return ( 
     <div>
       <h2>Name: {booking.customerName}</h2>
 
@@ -41,7 +41,7 @@ export default function CardList({ booking, removeComp, editeReservation, index 
       <button
         className="nav-btn"
         value={"borrado"}
-        onClick={(e) => removeComp(index)}
+        onClick={() => removeComp(index)}
       >
         Delete reservation
       </button>
