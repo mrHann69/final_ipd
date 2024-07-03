@@ -1,10 +1,9 @@
 'use strict';
-const { DataTypes } = require('sequelize');
 const { FLIGHT_BOOKING_TABLE } = require('../../components/flight/model');
 const { HOTEL_BOOKING_TABLE } = require('../../components/hotel/model');
 
 
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
 
@@ -14,35 +13,41 @@ module.exports = {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
-          type: DataTypes.INTEGER,
+          type: Sequelize.DataTypes.INTEGER,
         },
         customerName: {
           field: 'customer_name',
-          type: DataTypes.STRING,
+          type: Sequelize.DataTypes.STRING,
           allowNull: false
         },
         bookingDate: {
           field: 'booking_date',
-          type: DataTypes.DATE,
+          type: Sequelize.DataTypes.DATE,
           allowNull: false
         },
         hotelBookingId: {
           field: 'hotel_booking_id',
-          type: DataTypes.INTEGER,
+          type: Sequelize.DataTypes.INTEGER,
           allowNull: true,
-          default: null
+          default: null,
         },
         hotelCustomerName: {
           field: 'hotel_customer_name',
-          type: DataTypes.STRING,
+          type: Sequelize.DataTypes.STRING,
           allowNull: true,
           default: null
         },
-        hotelCustomerName: {
+        hotelBookingDate: {
           field: 'hotel_booking_date',
-          type: DataTypes.DATE,
+          type: Sequelize.DataTypes.DATE,
           allowNull: true,
           default: null
+        },
+        createdAt: {
+          type: Sequelize.DataTypes.DATE
+        },
+        updatedAt: {
+          type: Sequelize.DataTypes.DATE
         }
       }
     );
@@ -53,38 +58,64 @@ module.exports = {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
-          type: DataTypes.INTEGER,
+          type: Sequelize.DataTypes.INTEGER,
         },
         customerName: {
           field: 'customer_name',
-          type: DataTypes.STRING,
+          type: Sequelize.DataTypes.STRING,
           allowNull: false
         },
         bookingDate: {
           field: 'booking_date',
-          type: DataTypes.DATE,
+          type: Sequelize.DataTypes.DATE,
           allowNull: false
         },
         flightBookingId: {
           field: 'flight_booking_id',
-          type: DataTypes.INTEGER,
+          type: Sequelize.DataTypes.INTEGER,
           allowNull: true,
-          default:null
+          default: null,
         },
         flightCustomerName: {
           field: 'flight_customer_name',
-          type: DataTypes.STRING,
+          type: Sequelize.DataTypes.STRING,
           allowNull: true,
-          default:null
+          default: null
         },
-        flightCustomerName: {
+        flightBookingDate: {
           field: 'flight_booking_date',
-          type: DataTypes.DATE,
+          type: Sequelize.DataTypes.DATE,
           allowNull: true,
-          default:null
+          default: null
+        },
+        createdAt: {
+          type: Sequelize.DataTypes.DATE
+        },
+        updatedAt: {
+          type: Sequelize.DataTypes.DATE
         }
       }
     );
+    await queryInterface.changeColumn(FLIGHT_BOOKING_TABLE, "hotelBookingId", {
+      field: 'hotel_booking_id',
+      type: Sequelize.DataTypes.INTEGER,
+      allowNull: true,
+      default: null,
+      references: {
+        model: HOTEL_BOOKING_TABLE,
+        key: 'id'
+      },
+    });
+    await queryInterface.changeColumn(HOTEL_BOOKING_TABLE, "flightBookingId", {
+      field: 'flight_booking_id',
+      type: Sequelize.DataTypes.INTEGER,
+      allowNull: true,
+      default: null,
+      references: {
+        model: FLIGHT_BOOKING_TABLE,
+        key: 'id'
+      }
+    });
   },
 
   async down(queryInterface) {

@@ -1,40 +1,28 @@
 version: "3.3"
 
 services:
-  dbhotelbooking:
+  db:
     image: postgres:14
     ports:
       - 5432:5432
     volumes:
-      - ./postgres_data_hotel:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DATABASE=dbhotelbooking
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    
-  dbflightbooking:
-    image: postgres:14
-    ports:
-      - 6432:5432
-    volumes:
-      - ./postgres_data_flight:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DATABASE=dbflightbooking
+      - POSTGRES_DATABASE=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  app:
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 4000:4000
-    volumes:
-      - .:/app/
-      # - .:/usr/src/
-    command: npm run dev && npm install
-    depends_on:
-      - dbhotelbooking
-      - dbflightbooking
+  # app:
+  #   restart: on-failure
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 4000:4000
+  #   volumes:
+  #     - .:/app/
+  #     # - .:/usr/src/
+  #   command: npm run development && npm install
+  #   depends_on:
+  #     - db
     

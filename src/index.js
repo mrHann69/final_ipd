@@ -1,6 +1,3 @@
-// import config from "./config/config.js";
-// import app from "./app.js";
-
 const config = require("./config/config.js")
 const app = require("./app.js")
 

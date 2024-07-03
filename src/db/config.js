@@ -1,18 +1,20 @@
-// import config from "../config/config.js";
 const config = require('../config/config.js');
 
-// const URI = config.POSTGRES_URI_DOCKER;
-const URI_HOTEL = config.POSTGRES_URI_HOTEL;
-const URI_FLIGHT = config.POSTGRES_URI_FLIGHT;
-
-// export default {
+const URI = config.POSTGRES_URI;
+console.log("🔥🔥🔥🔥🔥",
+  {username: config.POSTGRES_USERNAME,
+    password: config.POSTGRES_PASSWORD,
+    database: config.POSTGRES_DATABASE,
+    host: config.POSTGRES_HOST,
+    port: config.POSTGRES_PORT,}
+)
 module.exports = {
-  devhotel: {
-    url: URI_HOTEL,
-    dialect: 'postgres'
-  },
-  devflight: {
-    url: URI_FLIGHT,
-    dialect: 'postgres'
+  development: {
+    username: config.POSTGRES_USERNAME,
+    password: config.POSTGRES_PASSWORD,
+    database: config.POSTGRES_DATABASE,
+    host: config.POSTGRES_HOST,
+    port: config.POSTGRES_PORT,
+    dialect: "postgres"
   }
 };

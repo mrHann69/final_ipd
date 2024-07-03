@@ -2,7 +2,7 @@ require('babel-register');
 
 module.exports = {
     config: './src/db/config.js',
-    'models-path': ['./src/db/setupModelsHotel.js','./src/db/setupModelsFlight.js'],
+    'models-path': ['./src/db/setupModels.js'],
     'migrations-path': './src/db/migrations/',
   };
   

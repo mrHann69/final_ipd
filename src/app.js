@@ -1,19 +1,9 @@
-// import express from 'express';
-// import morgan from 'morgan';
-// import routes from "./routes.js";
-// import bodyParser from 'body-parser';
-// import './db/pgdatabase.js';
-// import { testConnection } from './db/pgdatabase.js';
-// import "./middlewares/auth.js";
-
-
 const express = require('express');
 const morgan = require('morgan');
 const routes = require('./routes.js');
 const bodyParser = require('body-parser');
 
-require('./db/pgdatabaseHotel.js');
-require('./db/pgdatabaseFlight.js');
+require('./db/pg.js');
 
 const cors = require('cors');
 

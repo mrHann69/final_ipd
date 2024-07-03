@@ -6,17 +6,12 @@
   "scripts": {
     "start": "node --trace-warnings src/index.js",
     "dev": "nodemon --trace-warnings src/index.js",
+    "development": "env-cmd -e dev npm run dev",
+    "db:create": "env-cmd -e dev sequelize-cli db:create",
     "migrations:generate": "sequelize-cli migration:generate --name",
-
-    "dbhotel:create": "env-cmd -e devhotel sequelize-cli db:create",
-    "migrations-devhotel:run": "env-cmd -e devhotel sequelize-cli db:migrate",
-    "migrations-devhotel:delete": "env-cmd -e devhotel sequelize-cli db:migrate:undo:all",
-    "migrations-devhotel:revert": "env-cmd -e devhotel sequelize-cli db:migrate:undo",
-
-    "dbflight:create": "env-cmd -e devflight sequelize-cli db:create",
-    "migrations-devflight:run": "env-cmd -e devflight sequelize-cli db:migrate",
-    "migrations-devflight:delete": "env-cmd -e devflight sequelize-cli db:migrate:undo:all",
-    "migrations-devflight:revert": "env-cmd -e devflight sequelize-cli db:migrate:undo"
+    "migrations-dev:run": "env-cmd -e dev sequelize-cli db:migrate",
+    "migrations-dev:delete": "env-cmd -e dev sequelize-cli db:migrate:undo:all",
+    "migrations-dev:revert": "env-cmd -e dev sequelize-cli db:migrate:undo"
   },
   "repository": {
     "type": "git",

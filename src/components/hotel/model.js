@@ -26,7 +26,11 @@ const HotelBookingSchema = {
     field: 'flight_booking_id',
     type: DataTypes.INTEGER,
     allowNull: true,
-    default:null
+    default:null,
+    references:{
+      model: 'flight_booking',
+      key: 'id'
+    }
   },
   flightCustomerName: {
     field: 'flight_customer_name',
@@ -34,7 +38,7 @@ const HotelBookingSchema = {
     allowNull: true,
     default:null
   },
-  flightCustomerName: {
+  flightBookingDate: {
     field: 'flight_booking_date',
     type: DataTypes.DATE,
     allowNull: true,
@@ -45,7 +49,10 @@ const HotelBookingSchema = {
 // hotel booking class
 class HotelBooking extends Model {
   static associate(models) {
-
+    this.hasMany(models.FlightBooking, {
+      foreignKey: "flightBookingId",
+      as: 'flightBooking',
+    });
   }
   static config(sequelize) {
     return {
@@ -56,4 +63,8 @@ class HotelBooking extends Model {
     }
   }
 }
-module.exports= { HOTEL_BOOKING_TABLE, HotelBookingSchema, HotelBooking }; 
+module.exports= { 
+  HOTEL_BOOKING_TABLE, 
+  HotelBookingSchema, 
+  HotelBooking 
+}; 

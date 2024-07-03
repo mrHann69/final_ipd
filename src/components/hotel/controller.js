@@ -1,32 +1,34 @@
-// import product from "./model.js"; 
+// import product from "./model.js";
 // const product = require( "./model.js");
 
-const sequelize = require('../../db/pgdatabase.js')
+const sequelize = require("../../db/pg.js");
 const { models } = sequelize;
-
 
 // Get all
 async function getHotelBookings() {
-    try {
-      const hotels = await models.HotelBooking.findAll();
-      if (!hotels) {
-        throw new Error('HotelBookings not found');
-      }
-      return hotels;
-    } catch (error) {
-      throw new Error('Error retrieving hotels');
+  try {
+    const hotels = await models.HotelBooking.findAll({
+      include: ['flightBooking']
+    });
+    if (!hotels) {
+      throw new Error("HotelBookings not found");
     }
+    console.log("🔥🔥🔥🔥", hotels)
+    return hotels;
+  } catch (error) {
+    throw new Error("Error retrieving hotels");
   }
+}
 // Get One
 async function getHotelBookingById(hotelId) {
   try {
     const hotel = await models.HotelBooking.findByPk(hotelId);
     if (!hotel) {
-      return {status:false, msg: 'hotel not found'}; 
+      return { status: false, msg: "hotel not found" };
     }
-    return {status:true, msg: 'hotel found',hotel};
+    return { status: true, msg: "hotel found", hotel };
   } catch (error) {
-    throw new Error('Error retrieving hotel');
+    throw new Error("Error retrieving hotel");
   }
 }
 // Create
@@ -35,7 +37,7 @@ async function createHotelBooking(hotelData) {
     const newHotelBooking = await models.HotelBooking.create(hotelData);
     return newHotelBooking;
   } catch (error) {
-    throw new Error('Error creating hotel');
+    throw new Error("Error creating hotel");
   }
 }
 
@@ -43,13 +45,13 @@ async function createHotelBooking(hotelData) {
 async function updateHotelBooking(hotelId, hotelData) {
   try {
     const hotel = await models.HotelBooking.findByPk(hotelId);
-    if (hotel===null) {
-      return {status:false, msg: 'hotel not found'};
+    if (hotel === null) {
+      return { status: false, msg: "hotel not found" };
     }
-    const response = await hotel.update(hotelData,{where:{id:hotelId}});
-    return {status:true, msg:'hotel updated', response}
+    const response = await hotel.update(hotelData, { where: { id: hotelId } });
+    return { status: true, msg: "hotel updated", response };
   } catch (error) {
-    throw new Error('Error updating hotel');
+    throw new Error("Error updating hotel");
   }
 }
 
@@ -58,14 +60,20 @@ async function deleteHotelBooking(hotelId) {
   try {
     const hotel = await models.HotelBooking.findByPk(hotelId);
     if (!hotel) {
-      return {status:false,msg: 'hotel not found'};
+      return { status: false, msg: "hotel not found" };
     }
     await hotel.destroy();
-    return {status:true, msg:'hotel deleted'}
+    return { status: true, msg: "hotel deleted" };
   } catch (error) {
-    throw new Error('Error deleting hotel');
+    throw new Error("Error deleting hotel");
   }
 }
-const hotelController = { createHotelBooking, getHotelBookings, getHotelBookingById, updateHotelBooking, deleteHotelBooking };
+const hotelController = {
+  createHotelBooking,
+  getHotelBookings,
+  getHotelBookingById,
+  updateHotelBooking,
+  deleteHotelBooking,
+};
 
 module.exports = hotelController;
