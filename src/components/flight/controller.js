@@ -7,12 +7,15 @@ const { models } = sequelize;
 // Get all
 async function getFlightBookings() {
   try {
-    const flights = await models.FlightBooking.findAll();
+    const flights = await models.FlightBooking.findAll({
+      include: ["hotelBooking"],
+    });
     if (!flights) {
       throw new Error("FlightBookings not found");
     }
-    return flights;
+    return flights.map((it) => it.dataValues);
   } catch (error) {
+    console.error("Error retrieving flightssss 😡", error);
     throw new Error("Error retrieving flights");
   }
 }
@@ -67,7 +70,7 @@ async function deleteFlightBooking(flightId) {
     throw new Error("Error deleting flight");
   }
 }
-const hotelController = {
+const flightController = {
   createFlightBooking,
   getFlightBookings,
   getFlightBookingById,
@@ -75,4 +78,4 @@ const hotelController = {
   deleteFlightBooking,
 };
 
-module.exports = hotelController;
+module.exports = flightController;

@@ -1,6 +1,4 @@
 /node_modules/
-.env
-.env-cmdrc.json
 /scripts
 .$MER*
 postgres_data

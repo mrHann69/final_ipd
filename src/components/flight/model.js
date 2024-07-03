@@ -1,8 +1,7 @@
-const { DataTypes, Model } = require( 'sequelize');
-
+const { DataTypes, Model } = require("sequelize");
 
 // table name
-const FLIGHT_BOOKING_TABLE = 'flight_booking';
+const FLIGHT_BOOKING_TABLE = "flight_booking";
 
 //scheme of flight booking
 const FlightBookingSchema = {
@@ -13,58 +12,55 @@ const FlightBookingSchema = {
     type: DataTypes.INTEGER,
   },
   customerName: {
-    field: 'customer_name',
+    field: "customer_name",
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
-  bookingDate: {
-    field: 'booking_date',
+  checkInDate: {
+    field: "check_in_date",
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: new Date(),
+  },
+  checkOutDate: {
+    field: "check_out_date",
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: new Date(),
   },
   hotelBookingId: {
-    field: 'hotel_booking_id',
+    field: "hotel_booking_id",
     type: DataTypes.INTEGER,
     allowNull: true,
-    default:null,
-    references:{
-      model: 'hotel_booking',
-      key: 'id'
+    default: null,
+    references: {
+      model: "hotel_booking",
+      key: "id",
     },
+    onUpdate: "CASCADE",
+    onDelete: "SET NULL",
   },
-  hotelCustomerName: {
-    field: 'hotel_customer_name',
-    type: DataTypes.STRING,
-    allowNull: true,
-    default:null
-  },
-  hotelBookingDate: {
-    field: 'hotel_booking_date',
-    type: DataTypes.DATE,
-    allowNull: true,
-    default:null
-  }
-}
+};
 
 // flight booking class
 class FlightBooking extends Model {
   static associate(models) {
-    this.hasMany(models.HotelBooking, {
-      foreignKey: "hotelBookingId",
-      as: 'hotelBooking',
+    this.hasOne(models.HotelBooking, {
+      as: "hotelBooking",
+      foreignKey: "id",
     });
   }
   static config(sequelize) {
     return {
       sequelize,
       tableName: FLIGHT_BOOKING_TABLE,
-      modelName: 'FlightBooking',
-      timestamps: false
-    }
+      modelName: "FlightBooking",
+      timestamps: true,
+    };
   }
 }
-module.exports= { 
-  FLIGHT_BOOKING_TABLE, 
-  FlightBookingSchema, 
-  FlightBooking 
-}; 
+module.exports = {
+  FLIGHT_BOOKING_TABLE,
+  FlightBookingSchema,
+  FlightBooking,
+};
