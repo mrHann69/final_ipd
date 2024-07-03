@@ -2,14 +2,20 @@ import "./AppBookingList.css";
 import CardList from "./CardList";
 
 
-function AppBookingList({ list, setList }) {
+function AppBookingList({ list, setList, setIsUpdate, type}) {
 
-  function deleteted(index) {
+  function deleteReservation(index) {
     setList(list.splice(index, 1))
   }
 
-  function editeted(index) {
-    setList(list.splice(index, 1, list))
+  function editeReservation(index) {
+    const r = list.at(index);
+    if(!r) return;
+    setIsUpdate({
+      state: true,
+      booking: r,
+      type 
+    })
   }
 
   return (
@@ -20,7 +26,7 @@ function AppBookingList({ list, setList }) {
       <div className="scroll-box">
         {list &&
           list.map((booking, index) => (
-            <CardList booking={booking} removeComp={deleteted} index={index} />
+            <CardList key={index} booking={booking} removeComp={deleteReservation} editeReservation={editeReservation} index={index} />
           ))}
       </div>
     </div>

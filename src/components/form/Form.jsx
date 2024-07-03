@@ -1,56 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import "./Form.css";
 
-export default function Form({ type, list, setList }) {
+export default function Form({ type, update, setUpdate }) {
 
   const [customerName, setCustomerName] = useState('');
 
-  //const [bookingHotel, setBookingHotel] = useState(false);
   const [checkInDateHotel, setCheckInDateHotel] = useState('');
   const [checkOutDateHotel, setCheckOutDateHotel] = useState('');
 
-  //const [bookingFlight, setBookingFlight] = useState(false);
   const [checkInDateFlight, setCheckInDateFlight] = useState('');
   const [checkOutDateFlight, setCheckOutDateFlight] = useState('');
 
   const [stateCheckbox, setStateCheckbox] = useState(false);
 
-  const handleSubmitHotel = (e) => {
-    e.preventDefault();
-    const estructura = {
-      customerName,
-      bookingHotel:true,
-      checkInDateHotel,
-      checkOutDateHotel,
-      bookingFlight:stateCheckbox,
-      checkInDateFlight,
-      checkOutDateFlight
+  useEffect(() => {
+    if (update.state) {
+      const { booking } = update;
+      setCustomerName(booking.customerName);
+      setCheckInDateHotel(booking.checkInDateHotel);
+      setCheckOutDateHotel(booking.checkOutDateHotel);
+      setCheckInDateFlight(booking.checkInDateFlight);
+      setCheckOutDateFlight(booking.checkOutDateFlight);
+      setStateCheckbox(booking.bookingFlight && booking.bookingHotel);
     }
-    console.log("Datos estructura", estructura)
-    setList([estructura, ...list])
-    console.log("Datos Hotel", e.target)
-  };
+  }, [update.state]);
 
-  const handleSubmitFlight = (e) => {
+  const handleSubmit = (e, tp) => {
     e.preventDefault();
-    const estructura = {
+    const structure = {
       customerName,
-      bookingHotel:stateCheckbox,
       checkInDateHotel,
       checkOutDateHotel,
-      bookingFlight:true,
       checkInDateFlight,
       checkOutDateFlight
     }
-    setList([estructura, ...list])
-    console.log("Datos Flight", e.target)
+    if (update.state) {
+      if(update.type ==="hotel"){
+        // mandar al serivdor → PATCH /api/v1/hotel
+      }
+      if(update.type ==="flight"){
+        // mandar al serivdor → PATCH /pi/v1/flight
+      }
+      setUpdate({
+        state: false,
+        type: '',
+        booking: {}
+      })
+      return;
+    } else {
+      if (tp === "hotel") {
+        structure.bookingHotel = true;
+        structure.bookingFlight = stateCheckbox;
+        return;
+        // mandar al serivdor → POST /api/v1/hotel
+      }
+      structure.bookingHotel = stateCheckbox;
+      structure.bookingFlight = true;
+      // mandar al serivdor → POST /pi/v1/flight
+    }
+    return;
   };
 
   return (
     <div className="form-container">
-      <form onSubmit={type === "hotel" ? (handleSubmitHotel) : (handleSubmitFlight)} >
-        {type === "hotel"? (
+      <form onSubmit={(e) => handleSubmit(e, type)}>
+        {type === "hotel" ? (
           <>
             <div className="form-table">
               <h1>
@@ -110,9 +125,6 @@ export default function Form({ type, list, setList }) {
                   </div>
                 </>
               )}
-            </div>
-            <div className="form-row">
-              <button type="submit">Accept H</button>
             </div>
           </>
         ) : (
@@ -177,13 +189,12 @@ export default function Form({ type, list, setList }) {
               )}
 
             </div>
-            <div className="form-row">
-              <button type="submit">Accept F</button>
-            </div>
           </>
         )}
-
+        <div className="form-row">
+          <button type="submit">Accept {type === "hotel" ? "Hotel" : "Flight"}</button>
+        </div>
       </form>
     </div>
   );
-}
+}   
