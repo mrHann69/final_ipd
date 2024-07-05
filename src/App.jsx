@@ -9,6 +9,7 @@ import {
 import AppBookingList from "./components/AppBookingList/AppBookingList";
 import Form from "./components/form/Form.jsx";
 import { getHotelsReservations } from "./services/hotel.service.js";
+import { getFlightsReservations } from "./services/flight.service.js";
 
 function App() {
   const [showForm, setShowForm] = useState(true);
@@ -30,6 +31,9 @@ function App() {
   useEffect(() => {
     (async () => {
       setListHotels(await getHotelsReservations());
+    })();
+    (async () => {
+      setListFlights(await getFlightsReservations());
     })();
   }, []);
 
