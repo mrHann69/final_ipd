@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const sequelize = require("../../db/pg.js");
 const { models } = sequelize;
 
@@ -6,6 +7,13 @@ async function getFlightBookings() {
   try {
     const flights = await models.FlightBooking.findAll({
       include: ["hotelBooking"],
+      where: {
+        id: {
+          [Op.notIn]: sequelize.literal(
+            "(SELECT hb.flight_booking_id FROM hotel_booking hb WHERE hb.flight_booking_id IS NOT NULL)",
+          ),
+        },
+      },
     });
     if (!flights) {
       throw new Error("FlightBookings not found");
@@ -33,10 +41,11 @@ async function createFlightBooking(flight) {
   try {
     if (!flight) throw new Error("no hay datos para guardar");
     let htId = null;
-    const { customerName, checkInDate, checkOutDate } = flight;
+    const { customerName, checkInDate, checkOutDate, hasHotel } = flight;
     if (flight.bookingHotel !== undefined) {
       const ht = {
         customerName: flight.customerName,
+        hasFlight: false,
         ...flight.bookingHotel,
       };
       const response = await models.HotelBooking.create(ht);
@@ -46,6 +55,7 @@ async function createFlightBooking(flight) {
       customerName,
       checkInDate,
       checkOutDate,
+      hasHotel,
       hotelBookingId: htId,
     });
     return newFlightBooking;

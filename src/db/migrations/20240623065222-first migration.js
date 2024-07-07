@@ -35,6 +35,12 @@ module.exports = {
         allowNull: true,
         default: null,
       },
+      hasHotel: {
+        field: "hashotel",
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        default: false,
+      },
       createdAt: {
         type: Sequelize.DataTypes.DATE,
       },
@@ -72,6 +78,12 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: true,
         default: null,
+      },
+      hasFlight: {
+        field: "hasflight",
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        default: false,
       },
       createdAt: {
         type: Sequelize.DataTypes.DATE,

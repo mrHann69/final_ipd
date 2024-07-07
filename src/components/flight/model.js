@@ -40,6 +40,12 @@ const FlightBookingSchema = {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   },
+  hasHotel: {
+    field: "hashotel",
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    default: false,
+  },
 };
 
 // flight booking class
