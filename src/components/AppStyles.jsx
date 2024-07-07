@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const AppContainer = styled.div`
-  width: 90%;
+  width: 100%;
   height: 80vh;
   display: flex;
 
   flex-direction: column;
-  /*border: 1px solid #000000; */  
+  /*border: 1px solid #000000; */
+  border: 1px solid #000000;
   position: relative;
 `;
 
@@ -14,7 +15,6 @@ export const AppContainerRow = styled.div`
   width: 100%;
   height: 50vh;
   display: flex;
-  
 
   flex-direction: row;
   /*border: 1px solid #000000; */

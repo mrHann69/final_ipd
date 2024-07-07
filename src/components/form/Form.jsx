@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "./Form.css";
-import { createHotelsReservations, updateHotelsReservations } from "../../services/hotel.service";
-import { createFlightsReservations, updateFlightsReservations } from "../../services/flight.service";
-
 
 export default function Form({ type, update, setUpdate }) {
   const [customerName, setCustomerName] = useState("");
@@ -28,7 +25,7 @@ export default function Form({ type, update, setUpdate }) {
     }
   }, [update, update.state]);
 
-  const handleSubmit = async(e, tp) => {
+  const handleSubmit = (e, tp) => {
     e.preventDefault();
     const structure = {
       customerName,
@@ -40,11 +37,9 @@ export default function Form({ type, update, setUpdate }) {
     if (update.state) {
       if (update.type === "hotel") {
         // mandar al serivdor → PATCH /api/v1/hotel
-        await updateHotelsReservations(update.booking.id, structure);
       }
       if (update.type === "flight") {
         // mandar al serivdor → PATCH /pi/v1/flight
-        await updateFlightsReservations(update.booking.id, structure);
       }
       setUpdate({
         state: false,
@@ -56,14 +51,12 @@ export default function Form({ type, update, setUpdate }) {
       if (tp === "hotel") {
         structure.bookingHotel = true;
         structure.bookingFlight = stateCheckbox;
-        // mandar al serivdor → POST /api/v1/hotel
-        await createHotelsReservations(structure);
         return;
+        // mandar al serivdor → POST /api/v1/hotel
       }
       structure.bookingHotel = stateCheckbox;
       structure.bookingFlight = true;
       // mandar al serivdor → POST /pi/v1/flight
-      await createFlightsReservations(structure);
     }
     return;
   };
@@ -102,7 +95,7 @@ export default function Form({ type, update, setUpdate }) {
                   required
                 />
               </div>
-              <div >
+              <div>
                 <label htmlFor="checkflight">Fight Reservation ? </label>
                 <input
                   type="checkbox"

@@ -9,11 +9,13 @@ import {
 import AppBookingList from "./components/AppBookingList/AppBookingList";
 import Form from "./components/form/Form.jsx";
 import { getHotelsReservations } from "./services/hotel.service.js";
-import { getFlightsReservations } from "./services/flight.service.js";
 
 function App() {
   const [showForm, setShowForm] = useState(true);
   const [state, setState] = useState("hotel");
+
+  // const [listHotels, setListHotels] = useState(bookingListHotels);
+  // const [listFlights, setListFlights] = useState(bookingListFlights);
 
   const [listHotels, setListHotels] = useState([]);
   const [listFlights, setListFlights] = useState([]);
@@ -29,10 +31,7 @@ function App() {
     (async () => {
       setListHotels(await getHotelsReservations());
     })();
-    (async () => {
-      setListFlights(await getFlightsReservations());
-    })();
-  }, [isUpdate, showForm, state]);
+  }, []);
 
   return (
     <AppContainer>
@@ -91,11 +90,11 @@ const bookingListHotels = [
   {
     customerName: "alex",
     bookingHotel: true,
-    checkInDateHotel: new Date(),
-    checkOutDateHotel: new Date(),
+    checkInDateHotel: new Date().toUTCString(),
+    checkOutDateHotel: new Date().toUTCString(),
     bookingFlight: true,
-    checkInDateFlight: new Date(),
-    checkOutDateFlight: new Date(),
+    checkInDateFlight: new Date().toUTCString(),
+    checkOutDateFlight: new Date().toUTCString(),
   },
   {
     customerName: "alex1",
