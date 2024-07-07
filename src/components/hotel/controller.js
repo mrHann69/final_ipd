@@ -6,7 +6,6 @@ const { models } = sequelize;
 async function getHotelBookings() {
   try {
     const hotels = await models.HotelBooking.findAll({
-      include: ["flightBooking"],
       where: {
         id: {
           [Op.notIn]: sequelize.literal(
@@ -18,7 +17,22 @@ async function getHotelBookings() {
     if (!hotels) {
       throw new Error("HotelBookings not found");
     }
-    return hotels;
+    const response = await Promise.all(
+      hotels.map(async (it) => {
+        if (it.hasFlight) {
+          const flightBooking = await models.FlightBooking.findByPk(
+            it.flightBookingId,
+          );
+          if (flightBooking !== null || flightBooking !== undefined)
+            return {
+              ...it.dataValues,
+              flightBooking: flightBooking.dataValues,
+            };
+        }
+        return it.dataValues;
+      }),
+    ).then((res) => res);
+    return response;
   } catch (error) {
     console.log("Error getting hotels ❌", error);
     throw new Error("Error retrieving hotels");
