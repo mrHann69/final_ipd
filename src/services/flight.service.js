@@ -1,9 +1,9 @@
 import axios from "axios";
 import config from "../config.js";
 
-export async function getHotelsReservations() {
+export async function getFlightsReservations() {
   try {
-    const URI = config.BACKEND_URI.concat("/hotels");
+    const URI = config.BACKEND_URI.concat("/flights");
 
     const request = await axios.get(URI, {
       headers: {
@@ -11,19 +11,19 @@ export async function getHotelsReservations() {
       },
     });
     const response = await request.data;
-    console.log(" response: ❌ get Resp H:", response);
+    console.log(" response: ❌ Get Resp F: ", response);
     return response;
   } catch (error) {
-    console.error("error en axios getHotelsReservations", error);
+    console.error("error en axios getFlightsReservations", error);
     throw new Error(error);
   }
 }
 
-export async function createHotelsReservations(data) {
+export async function createFlightsReservations(data) {
   try {    
-    const URI = config.BACKEND_URI.concat("/hotel");
+    const URI = config.BACKEND_URI.concat("/flight");
 
-    console.log("Hotels URI: ",URI)
+    console.log("Flights URI: ",URI)
     //console.log(" query ",URL)
 
     const request = await axios.post(URI, data, {
@@ -35,16 +35,16 @@ export async function createHotelsReservations(data) {
     console.log(" response: 🚀 Create", response);
     return response;
   } catch (error) {
-    console.error("error en axios createHotelsReservations", error);
+    console.error("error en axios createFlightsReservations", error);
     throw new Error(error);
   }
 }
 
-export async function updateHotelsReservations(id, data) {
+export async function updateFlightsReservations(id, data) {
   try {
     const query = new URLSearchParams();
     query.append("id", id);
-    const URI = config.BACKEND_URI.concat("/hotel");
+    const URI = config.BACKEND_URI.concat("/flight");
     const URL = URI.concat(`?${query.toString()}`);
 
     const request = await axios.patch(URL, data, {
@@ -56,20 +56,17 @@ export async function updateHotelsReservations(id, data) {
     console.log(" response: 🚀 Update", response);
     return response;
   } catch (error) {
-    console.error("error en axios  Update Hotels Reservations", error);
+    console.error("error en axios update Flights Reservations", error);
     throw new Error(error);
   }
 }
 
-export async function deleteHotelsReservations(id) {
+export async function deleteFlightsReservations(id) {
   try {
     const query = new URLSearchParams();
     query.append("id", id);
-    const URI = config.BACKEND_URI.concat("/hotel");
+    const URI = config.BACKEND_URI.concat("/flight");
     const URL = URI.concat(`?${query.toString()}`);
-    
-    //console.log("deleteHotelsReservations URI: ",URI)
-    //console.log(" query ",URL)
 
     const request = await axios.delete(URL, {
       headers: {
@@ -80,7 +77,7 @@ export async function deleteHotelsReservations(id) {
     console.log(" response: 🚀 Delete", response);
     return response;
   } catch (error) {
-    console.error("error en axios delete Hotels Reservations", error);
+    console.error("error en axios Delete Flights Reservations", error);
     throw new Error(error);
   }
 }
