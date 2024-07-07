@@ -34,7 +34,24 @@ async function getHotelBookingById(hotelId) {
 // Create
 async function createHotelBooking(hotelData) {
   try {
-    const newHotelBooking = await models.HotelBooking.create(hotelData);
+    if(!hotelData) throw new Error("no hay datos para guardar");
+    let fbId = null;
+    const {customerName, checkInDate, checkOutDate} = hotelData
+    if(hotelData.bookingFlight!==undefined){
+      const fb = {
+        customerName: hotelData.customerName,
+        ...hotelData.bookingFlight
+      }
+      const response = await models.FlightBooking.create(fb);
+      if(response) fbId = response.id;
+    }
+    
+    const newHotelBooking = await models.HotelBooking.create({
+      customerName, 
+      checkInDate, 
+      checkOutDate,
+      flightBookingId: fbId
+    });
     return newHotelBooking;
   } catch (error) {
     throw new Error("Error creating hotel");

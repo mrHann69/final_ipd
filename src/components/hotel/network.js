@@ -23,7 +23,8 @@ router.get("/hotel", async (req, res) => {
 
 router.post("/hotel", async (req, res) => {
   try {
-    const newHotel = await hotelController.createHotelBooking(req.body);
+    const rawData = req.body;
+    const newHotel = await hotelController.createHotelBooking(rawData);
     res.status(201).json(newHotel);
   } catch (error) {
     res.status(500).json({ error: error.message });
