@@ -23,14 +23,14 @@ router.get("/flight", async (req, res) => {
 
 router.post("/flight", async (req, res) => {
   try {
-    const newHotel = await FlightController.createFlightBooking(req.body);
-    res.status(201).json(newHotel);
+    const newFlight = await FlightController.createFlightBooking(req.body);
+    res.status(201).json(newFlight);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 // /flight?id=123
-router.put("/flight", async (req, res) => {
+router.patch("/flight", async (req, res) => {
   try {
     const hotelUpdated = await FlightController.updateFlightBooking(
       req.query.id,

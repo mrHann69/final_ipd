@@ -38,7 +38,7 @@ const FlightBookingSchema = {
       key: "id",
     },
     onUpdate: "CASCADE",
-    onDelete: "SET NULL",
+    onDelete: "CASCADE",
   },
 };
 
@@ -48,6 +48,7 @@ class FlightBooking extends Model {
     this.hasOne(models.HotelBooking, {
       as: "hotelBooking",
       foreignKey: "id",
+      onDelete: "CASCADE",
     });
   }
   static config(sequelize) {

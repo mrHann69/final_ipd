@@ -47,7 +47,8 @@ router.patch("/hotel", async (req, res) => {
 // /hotel?id=123
 router.delete("/hotel", async (req, res) => {
   try {
-    const message = await hotelController.deleteHotelBooking(req.query.id);
+    const { id } = req.query;
+    const message = await hotelController.deleteHotelBooking(id);
     if (message.status) return res.status(200).json({ msg: message.msg }).end();
     return res.status(404).json({ msg: message.msg }).end();
   } catch (error) {
