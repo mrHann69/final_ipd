@@ -56,7 +56,7 @@ export async function updateFlightsReservations(id, data) {
     console.log(" response: 🚀 Update", response);
     return response;
   } catch (error) {
-    console.error("error en axios createFlightsReservations", error);
+    console.error("error en axios update Flights Reservations", error);
     throw new Error(error);
   }
 }
@@ -77,7 +77,7 @@ export async function deleteFlightsReservations(id) {
     console.log(" response: 🚀 Delete", response);
     return response;
   } catch (error) {
-    console.error("error en axios createFlightsReservations", error);
+    console.error("error en axios Delete Flights Reservations", error);
     throw new Error(error);
   }
 }

@@ -56,7 +56,7 @@ export async function updateHotelsReservations(id, data) {
     console.log(" response: 🚀 Update", response);
     return response;
   } catch (error) {
-    console.error("error en axios createHotelsReservations", error);
+    console.error("error en axios  Update Hotels Reservations", error);
     throw new Error(error);
   }
 }
@@ -80,7 +80,7 @@ export async function deleteHotelsReservations(id) {
     console.log(" response: 🚀 Delete", response);
     return response;
   } catch (error) {
-    console.error("error en axios deleteHotelsReservations", error);
+    console.error("error en axios delete Hotels Reservations", error);
     throw new Error(error);
   }
 }
