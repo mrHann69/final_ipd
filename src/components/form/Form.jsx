@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-import "./Form.css";
-import { createHotelsReservations, updateHotelsReservations } from "../../services/hotel.service";
-import { createFlightsReservations, updateFlightsReservations } from "../../services/flight.service";
-
+import {
+  createHotelsReservations,
+  updateHotelsReservations,
+} from "../../services/hotel.service";
+import {
+  createFlightsReservations,
+  updateFlightsReservations,
+} from "../../services/flight.service";
+import {
+  FormMain,
+  FormContainer,
+  FormFields,
+  Field,
+  FormButtom,
+} from "./FormStyles";
 
 export default function Form({ type, update, setUpdate }) {
   const [customerName, setCustomerName] = useState("");
@@ -28,7 +39,7 @@ export default function Form({ type, update, setUpdate }) {
     }
   }, [update, update.state]);
 
-  const handleSubmit = async(e, tp) => {
+  const handleSubmit = async (e, tp) => {
     e.preventDefault();
     const structure = {
       customerName,
@@ -69,50 +80,52 @@ export default function Form({ type, update, setUpdate }) {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={(e) => handleSubmit(e, type)}>
+    <div>
+      <FormMain onSubmit={(e) => handleSubmit(e, type)} className="form-table">
         {type === "hotel" ? (
           <>
-            <div className="form-table">
-              <h1>Hotel Bukinham</h1>
-              <div className="form-cell">
-                <label>Name:</label>
-                <input
-                  type="text"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-cell">
-                <label>Check In:</label>
-                <input
-                  type="date"
-                  value={checkInDateHotel}
-                  onChange={(e) => setCheckInDateHotel(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-cell">
-                <label>Check Out:</label>
-                <input
-                  type="date"
-                  value={checkOutDateHotel}
-                  onChange={(e) => setCheckOutDateHotel(e.target.value)}
-                  required
-                />
-              </div>
-              <div >
-                <label htmlFor="checkflight">Fight Reservation ? </label>
-                <input
-                  type="checkbox"
-                  name="checkflight"
-                  onChange={() => setStateCheckbox(!stateCheckbox)}
-                />
-              </div>
+            <FormContainer>
+              <h1>Hotel Reservation</h1>
+              <FormFields>
+                <Field>
+                  <label>Name:</label>
+                  <input
+                    type="text"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    required
+                  />
+                </Field>
+                <Field>
+                  <label>Check In:</label>
+                  <input
+                    type="date"
+                    value={checkInDateHotel}
+                    onChange={(e) => setCheckInDateHotel(e.target.value)}
+                    required
+                  />
+                </Field>
+                <Field>
+                  <label>Check Out:</label>
+                  <input
+                    type="date"
+                    value={checkOutDateHotel}
+                    onChange={(e) => setCheckOutDateHotel(e.target.value)}
+                    required
+                  />
+                </Field>
+                <Field>
+                  <label htmlFor="checkflight">Fight Reservation ? </label>
+                  <input
+                    type="checkbox"
+                    name="checkflight"
+                    onChange={() => setStateCheckbox(!stateCheckbox)}
+                  />
+                </Field>
+              </FormFields>
               {stateCheckbox && (
-                <>
-                  <div className="form-cell">
+                <FormFields>
+                  <Field>
                     <label>Check In:</label>
                     <input
                       type="date"
@@ -120,8 +133,8 @@ export default function Form({ type, update, setUpdate }) {
                       onChange={(e) => setCheckInDateFlight(e.target.value)}
                       required
                     />
-                  </div>
-                  <div className="form-cell">
+                  </Field>
+                  <Field>
                     <label>Check Out:</label>
                     <input
                       type="date"
@@ -129,81 +142,82 @@ export default function Form({ type, update, setUpdate }) {
                       onChange={(e) => setCheckOutDateFlight(e.target.value)}
                       required
                     />
-                  </div>
-                </>
+                  </Field>
+                </FormFields>
               )}
-            </div>
+            </FormContainer>
           </>
         ) : (
           <>
-            <div className="form-table">
-              <h1>Flight Bakiña</h1>
-              <div className="form-cell">
-                <label>Name:</label>
-                <input
-                  type="text"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-cell">
-                <label>Check In:</label>
-                <input
-                  type="date"
-                  value={checkInDateFlight}
-                  onChange={(e) => setCheckInDateFlight(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-cell">
-                <label>Check Out:</label>
-                <input
-                  type="date"
-                  value={checkOutDateFlight}
-                  onChange={(e) => setCheckOutDateFlight(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="checkhotel">Hotel Reservation ? </label>
-                <input
-                  type="checkbox"
-                  name="checkhotel"
-                  onChange={() => setStateCheckbox(!stateCheckbox)}
-                />
-              </div>
-              {stateCheckbox && (
-                <>
-                  <div className="form-cell">
-                    <label>Check In:</label>
-                    <input
-                      type="date"
-                      value={checkInDateHotel}
-                      onChange={(e) => setCheckInDateHotel(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-cell">
-                    <label>Check Out:</label>
-                    <input
-                      type="date"
-                      value={checkOutDateHotel}
-                      onChange={(e) => setCheckOutDateHotel(e.target.value)}
-                      required
-                    />
-                  </div>
-                </>
-              )}
-            </div>
+            <FormContainer>
+              <h1>Flight Reservation</h1>
+              <FormFields>
+                <Field>
+                  <label>Name:</label>
+                  <input
+                    type="text"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    required
+                  />
+                </Field>
+                <Field>
+                  <label>Check In:</label>
+                  <input
+                    type="date"
+                    value={checkInDateFlight}
+                    onChange={(e) => setCheckInDateFlight(e.target.value)}
+                    required
+                  />
+                </Field>
+                <Field>
+                  <label>Check Out:</label>
+                  <input
+                    type="date"
+                    value={checkOutDateFlight}
+                    onChange={(e) => setCheckOutDateFlight(e.target.value)}
+                    required
+                  />
+                </Field>
+                <Field>
+                  <label htmlFor="checkhotel">Hotel Reservation ? </label>
+                  <input
+                    type="checkbox"
+                    name="checkhotel"
+                    onChange={() => setStateCheckbox(!stateCheckbox)}
+                  />
+                </Field>
+                {stateCheckbox && (
+                  <>
+                    <Field>
+                      <label>Check In:</label>
+                      <input
+                        type="date"
+                        value={checkInDateHotel}
+                        onChange={(e) => setCheckInDateHotel(e.target.value)}
+                        required
+                      />
+                    </Field>
+                    <Field>
+                      <label>Check Out:</label>
+                      <input
+                        type="date"
+                        value={checkOutDateHotel}
+                        onChange={(e) => setCheckOutDateHotel(e.target.value)}
+                        required
+                      />
+                    </Field>
+                  </>
+                )}
+              </FormFields>
+            </FormContainer>
           </>
         )}
-        <div className="form-row">
-          <button type="submit">
-            Accept {type === "hotel" ? "Hotel" : "Flight"}
-          </button>
-        </div>
-      </form>
+
+        <FormButtom type="submit">
+          Accept {type === "hotel" ? "Hotel" : "Flight"}
+        </FormButtom>
+      </FormMain>
     </div>
   );
 }

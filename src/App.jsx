@@ -5,6 +5,7 @@ import {
   AppButtons,
   Button,
   AppContainerRow,
+  AppContainerForm,
 } from "./components/AppStyles";
 import AppBookingList from "./components/AppBookingList/AppBookingList";
 import Form from "./components/form/Form.jsx";
@@ -55,13 +56,14 @@ function App() {
               Flight
             </Button>
           </AppButtons>
-
-          {showForm && (
-            <Form type={state} update={isUpdate} setUpdate={setIsUpdate} />
-          )}
-          {!showForm && (
-            <Form type={state} update={isUpdate} setUpdate={setIsUpdate} />
-          )}
+          <AppContainerForm>
+            {showForm && (
+              <Form type={state} update={isUpdate} setUpdate={setIsUpdate} />
+            )}
+            {!showForm && (
+              <Form type={state} update={isUpdate} setUpdate={setIsUpdate} />
+            )}
+          </AppContainerForm>
         </AppContainer>
 
         <AppContainer>
@@ -86,63 +88,4 @@ function App() {
     </AppContainer>
   );
 }
-
-const bookingListHotels = [
-  {
-    customerName: "alex",
-    bookingHotel: true,
-    checkInDateHotel: new Date(),
-    checkOutDateHotel: new Date(),
-    bookingFlight: true,
-    checkInDateFlight: new Date(),
-    checkOutDateFlight: new Date(),
-  },
-  {
-    customerName: "alex1",
-    bookingHotel: true,
-    checkInDateHotel: new Date().toUTCString(),
-    checkOutDateHotel: new Date().toUTCString(),
-    bookingFlight: false,
-    checkInDateFlight: new Date().toUTCString(),
-    checkOutDateFlight: new Date().toUTCString(),
-  },
-  {
-    customerName: "alex2",
-    bookingHotel: true,
-    checkInDateHotel: new Date().toUTCString(),
-    checkOutDateHotel: new Date().toUTCString(),
-    bookingFlight: false,
-    checkInDateFlight: new Date().toUTCString(),
-    checkOutDateFlight: new Date().toUTCString(),
-  },
-];
-const bookingListFlights = [
-  {
-    customerName: "mandingo",
-    bookingHotel: true,
-    checkInDateHotel: new Date().toUTCString(),
-    checkOutDateHotel: new Date().toUTCString(),
-    bookingFlight: true,
-    checkInDateFlight: new Date().toUTCString(),
-    checkOutDateFlight: new Date().toUTCString(),
-  },
-  {
-    customerName: "mandingo1",
-    bookingHotel: true,
-    checkInDateHotel: new Date().toUTCString(),
-    checkOutDateHotel: new Date().toUTCString(),
-    bookingFlight: false,
-    checkInDateFlight: new Date().toUTCString(),
-    checkOutDateFlight: new Date().toUTCString(),
-  },
-  {
-    customerName: "mandingo2",
-    bookingHotel: true,
-    checkInDateHotel: new Date().toUTCString(),
-    checkOutDateHotel: new Date().toUTCString(),
-    bookingFlight: false,
-    checkInDateFlight: new Date().toUTCString(),
-    checkOutDateFlight: new Date().toUTCString(),
-  },
-];
 export default App;
