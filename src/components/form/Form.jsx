@@ -27,6 +27,15 @@ export default function Form({ type, update, setUpdate }) {
 
   const [stateCheckbox, setStateCheckbox] = useState(false);
 
+  const clearForm = () => {
+    setCustomerName("");
+    setCheckInDateHotel("");
+    setCheckOutDateHotel("");
+    setCheckInDateFlight("");
+    setCheckOutDateFlight("");
+    setStateCheckbox(false);
+  };
+
   useEffect(() => {
     if (update.state) {
       const { booking } = update;
@@ -41,40 +50,61 @@ export default function Form({ type, update, setUpdate }) {
 
   const handleSubmit = async (e, tp) => {
     e.preventDefault();
-    const structure = {
-      customerName,
-      checkInDateHotel,
-      checkOutDateHotel,
-      checkInDateFlight,
-      checkOutDateFlight,
-    };
     if (update.state) {
       if (update.type === "hotel") {
         // mandar al serivdor → PATCH /api/v1/hotel
-        await updateHotelsReservations(update.booking.id, structure);
+        await updateHotelsReservations(update.booking.id, update.booking);
       }
       if (update.type === "flight") {
         // mandar al serivdor → PATCH /pi/v1/flight
-        await updateFlightsReservations(update.booking.id, structure);
+        await updateFlightsReservations(update.booking.id, update.booking); //structure
       }
       setUpdate({
         state: false,
         type: "",
         booking: {},
       });
+      clearForm();
       return;
     } else {
       if (tp === "hotel") {
-        structure.bookingHotel = true;
-        structure.bookingFlight = stateCheckbox;
+        const structure = {
+          customerName,
+          checkInDate: checkInDateHotel,
+          checkOutDate: checkOutDateHotel,
+          hasFlight: stateCheckbox,
+        };
+
+        if (stateCheckbox) {
+          structure.hasFlight = stateCheckbox;
+          structure.bookingFlight = {
+            checkInDate: checkInDateFlight,
+            checkOutDate: checkOutDateFlight,
+          };
+        }
         // mandar al serivdor → POST /api/v1/hotel
         await createHotelsReservations(structure);
+        clearForm();
         return;
+      } else {
+        const structure = {
+          customerName,
+          checkInDate: checkInDateFlight,
+          checkOutDate: checkOutDateFlight,
+          hasHotel: stateCheckbox,
+        };
+
+        if (stateCheckbox) {
+          structure.hasHotel = stateCheckbox;
+          structure.bookingHotel = {
+            checkInDate: checkInDateHotel,
+            checkOutDate: checkOutDateHotel,
+          };
+        }
+        // mandar al serivdor → POST /pi/v1/flight
+        await createFlightsReservations(structure);
+        clearForm();
       }
-      structure.bookingHotel = stateCheckbox;
-      structure.bookingFlight = true;
-      // mandar al serivdor → POST /pi/v1/flight
-      await createFlightsReservations(structure);
     }
     return;
   };

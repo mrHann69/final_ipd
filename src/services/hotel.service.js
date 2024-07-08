@@ -3,9 +3,10 @@ import config from "../config.js";
 
 export async function getHotelsReservations() {
   try {
-    const URI = config.BACKEND_URI.concat("/hotels");
+    const URI = config.BACKEND_URI;
+    const URL = URI.concat("/hotels");
 
-    const request = await axios.get(URI, {
+    const request = await axios.get(URL, {
       headers: {
         "content-type": "application/json",
       },
@@ -20,10 +21,10 @@ export async function getHotelsReservations() {
 }
 
 export async function createHotelsReservations(data) {
-  try {    
+  try {
     const URI = config.BACKEND_URI.concat("/hotel");
 
-    console.log("Hotels URI: ",URI)
+    console.log("Hotels URI: ", URI);
     //console.log(" query ",URL)
 
     const request = await axios.post(URI, data, {
@@ -67,7 +68,7 @@ export async function deleteHotelsReservations(id) {
     query.append("id", id);
     const URI = config.BACKEND_URI.concat("/hotel");
     const URL = URI.concat(`?${query.toString()}`);
-    
+
     //console.log("deleteHotelsReservations URI: ",URI)
     //console.log(" query ",URL)
 
