@@ -4,11 +4,6 @@ const setupModels = require("./setupModels.js");
 
 const { POSTGRES_URI } = config;
 
-// const options = {
-//   host: "localhost",
-//   dialect: "postgres",
-// }
-
 const options = {
   username: config.POSTGRES_USERNAME,
   password: config.POSTGRES_PASSWORD,
