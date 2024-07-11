@@ -9,7 +9,7 @@ export const AppTitle = styled.div`
   font-size: 50px;
   font-weight: bold;
   padding: 5px 0px;
-  background-color: #ff204e;
+  background-color: #def9c4;
 `;
 
 export const AppContainerRow = styled.div`
@@ -26,7 +26,7 @@ export const AppContainer = styled.div`
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background-color: #00224d;
+  background-color: #468585;
 `;
 export const AppButtons = styled.div`
   width: 100%;
@@ -52,8 +52,8 @@ export const Button = styled.button`
   margin: 10px 20px;
   display: flex;
   border-radius: 10px;
-  border: 5px solid #5d0e41;
-  background-color: #ff204e;
+  border: 5px solid #50B498;
+  background-color: #DEF9C4;
   justify-content: center;
   align-items: center;
   color: black;

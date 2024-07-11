@@ -21,7 +21,7 @@ export const FormContainer = styled.div`
   font-weight: bold;
   padding: 5px 0px;
   border-radius: 10px;
-  background-color: #ff204e;
+  background-color: #def9c4;
 `;
 export const FormFields = styled.div`
   width: 40vw;
@@ -29,8 +29,9 @@ export const FormFields = styled.div`
   margin: 20px;
   gap: 10px;
   border-radius: 10px;
-  background-color: #a0153e;
+  background-color: #9cdba6;
   color: white;
+  color: black;
 `;
 
 export const Field = styled.div`

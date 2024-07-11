@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import "./Form.css";
-import { createHotelsReservations, updateHotelsReservations } from "../../services/hotel.service";
-import { createFlightsReservations, updateFlightsReservations } from "../../services/flight.service";
-
+import {
+  createHotelsReservations,
+  updateHotelsReservations,
+} from "../../services/hotel.service";
+import {
+  createFlightsReservations,
+  updateFlightsReservations,
+} from "../../services/flight.service";
 
 export default function Form({ type, update, setUpdate }) {
   const [customerName, setCustomerName] = useState("");
@@ -15,15 +20,15 @@ export default function Form({ type, update, setUpdate }) {
   const [checkOutDateFlight, setCheckOutDateFlight] = useState("");
 
   const [stateCheckbox, setStateCheckbox] = useState(false);
-  
-  const clearForm = ()=>{
+
+  const clearForm = () => {
     setCustomerName("");
     setCheckInDateHotel("");
     setCheckOutDateHotel("");
     setCheckInDateFlight("");
     setCheckOutDateFlight("");
     setStateCheckbox(false);
-  }
+  };
 
   useEffect(() => {
     if (update.state) {
@@ -46,7 +51,7 @@ export default function Form({ type, update, setUpdate }) {
       }
       if (update.type === "flight") {
         // mandar al serivdor → PATCH /pi/v1/flight
-        await updateFlightsReservations(update.booking.id, update.booking);//structure
+        await updateFlightsReservations(update.booking.id, update.booking); //structure
       }
       setUpdate({
         state: false,
@@ -63,32 +68,30 @@ export default function Form({ type, update, setUpdate }) {
           checkOutDate: checkOutDateHotel,
         };
 
-        if(stateCheckbox){
+        if (stateCheckbox) {
           structure.bookingFlight = {
-              checkInDate: checkInDateFlight,
-              checkOutDate: checkOutDateFlight,
-            }
+            checkInDate: checkInDateFlight,
+            checkOutDate: checkOutDateFlight,
+          };
         }
         // mandar al serivdor → POST /api/v1/hotel
-        console.log("structure : 🖕🖕🖕🖕🖕", structure)
         await createHotelsReservations(structure);
         clearForm();
         return;
       } else {
         const structure = {
           customerName,
-            checkInDate: checkInDateFlight,
-            checkOutDate: checkOutDateFlight,
+          checkInDate: checkInDateFlight,
+          checkOutDate: checkOutDateFlight,
         };
 
-        if(stateCheckbox){
+        if (stateCheckbox) {
           structure.bookingHotel = {
-              checkInDate: checkInDateHotel,
-              checkOutDate: checkOutDateHotel,
-            }
+            checkInDate: checkInDateHotel,
+            checkOutDate: checkOutDateHotel,
+          };
         }
         // mandar al serivdor → POST /pi/v1/flight
-        console.log("structure : 🌳🌳🌳🌳", structure)
         await createFlightsReservations(structure);
         clearForm();
       }
@@ -147,7 +150,7 @@ export default function Form({ type, update, setUpdate }) {
                     <label>Check In:</label>
                     <input
                       type="date"
-                      value={checkInDateFlight}//checkInDate
+                      value={checkInDateFlight} //checkInDate
                       onChange={(e) => setCheckInDateFlight(e.target.value)}
                       required
                     />

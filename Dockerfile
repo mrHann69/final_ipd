@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alpine
 WORKDIR /booking-app/
 COPY public/ /booking-app/public
 COPY src/ /booking-app/src

@@ -65,6 +65,7 @@ export default function CardList({
           className="nav-btn"
           value={"borrado"}
           onClick={() => removeComp(index)}
+          typebutton={true}
         >
           Delete reservation
         </Button>

@@ -7,8 +7,9 @@ export const CardContainer = styled.div`
   font-size: 20px;
   display: flex;
   flex-direction: row;
-  background-color: #ff204e;
+  background-color: #def9c4;
   border-radius: 10px;
+  color: black;
 `;
 export const CardInformation = styled.div`
   width: 100%;
@@ -29,7 +30,7 @@ export const Button = styled.button`
   margin: 10px 20px;
   display: flex;
   border-radius: 10px;
-  border: 5px solid #5d0e41;
+  border: 5px solid #50b498;
   justify-content: center;
   align-items: center;
   color: black;
@@ -40,6 +41,5 @@ export const Button = styled.button`
   &:hover {
     color: black;
     cursor: pointer;
-    background-color: ${({ typeButton }) => (typeButton ? "red" : "#ff204e")};
-  }
+    background-color: ${({ typebutton }) => (typebutton ? "red" : "#DEF9C4")};
 `;

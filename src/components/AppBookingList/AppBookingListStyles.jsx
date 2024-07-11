@@ -7,7 +7,7 @@ export const AppListContainer = styled.div`
   border-radius: 10px;
   font-size: 25px;
   font-weight: bold;
-  background-color: #ff204e;
+  background-color: #def9c4;
 `;
 export const ListContainer = styled.div`
   height: 60vh;
@@ -20,7 +20,7 @@ export const ListContainer = styled.div`
   border-radius: 10px;
   font-size: 25px;
   font-weight: bold;
-  background-color: #a0153e;
+  background-color: #9cdba6;
   color: white;
   display: flex;
   flex-direction: column;
